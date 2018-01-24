@@ -186,7 +186,6 @@ namespace PTraceToMSC
             {
                 //Find index of the last line which starts with "Execution":
                 List<int> inds = new List<int>();
-                //foreach (string line in lines)
                 for (int i = 0; i < lines.Count(); i++)
                 {
                     if (lines[i].StartsWith("Execution"))
@@ -233,7 +232,6 @@ namespace PTraceToMSC
                 return 1;
             }
 
-            Console.ReadLine();
             return 0;
         }
     }

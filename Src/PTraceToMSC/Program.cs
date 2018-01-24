@@ -44,8 +44,6 @@ namespace PTraceToMSC
     class PTraceToMSCConverter
     {
         //Original trace file:
-        //public string pTraceOrigFile;
-        //Original trace:
         public string[] pTraceOrig;
         //index of the start line of the trace in the original file:
         int start;
@@ -63,7 +61,7 @@ namespace PTraceToMSC
         private string mainMachineName;
         //Stores vector clock values for each machine:
         public Dictionary<string, int> vectorClocks;
-        //Stors event queue for each machine:
+        //Stores event queue for each machine:
         public Dictionary<string,Queue<QueueElem>> eventQueues;
         public PTraceToMSCConverter(string[] inputTrace, int start)
         {
@@ -88,21 +86,13 @@ namespace PTraceToMSC
             {
                 var lastDot = matches[matches.Count - 1];
                 int dotInd = lastDot.Index;
-                //Debug:
-                int length = res.Length;
-                int len = res.Length - dotInd - 1;
-                res = res.Substring(dotInd + 1, len);
-                //Debug:
-                //Console.WriteLine("Short name for {0} is {1}; last dot index is {2}; short name length is {3}", name, res, dotInd, len);
             }
             //Strip instance numbers (after "-") for main machine and spec machines for PTester:
             int pos = res.LastIndexOf("-");
             string pureName = (pos > 1) ? res.Substring(0, pos) : res;
-            //Console.WriteLine("Pure name for {0} is {1}", res, pureName);
             if (pTool == "ptester" &&  (monitors.Contains(pureName) || String.Equals(pureName, mainMachineName)))
             {
-                res = pureName;
-                //Console.WriteLine("Stripped spec or main machine name {0}, result: {1}", res, pureName);    
+                res = pureName;    
             }
             
             return res;
@@ -117,7 +107,7 @@ namespace PTraceToMSC
                 res = line.Substring(5);
             }
             else { res = line; }
-            //TODO: shorten names in the original message:
+            //TODO: shorten names in the original message
             return res;
         }
         private void UpdateLastNonMonitorHost(string curHost)
@@ -201,9 +191,7 @@ namespace PTraceToMSC
                     //Consider: for error dialog window do not appear in Release mode, replace Trace.Assert with Debug.Assert.
                     //Consider alt way of error reporting: throw custom exceptions or issue warnings?
 
-                    //No more than two machines in each line:
                     Trace.Assert(machInds.Count <= 2);
-                    //No more than a single event in each line:
                     Trace.Assert(evInds.Count <= 1);
 
                     //Find which log the line belongs to:
@@ -215,7 +203,6 @@ namespace PTraceToMSC
                         //ERROR: EventSentAfterSentHaltHandled_v.p(59,23,59,29): error PC1001: Assert failed
                         //Leave such lines in the trace, but do not process them:
                         resLine.lineKind = ParsedTraceLine.Kind.Comment;
-                        //resLine.hostMachine = GetHostMachineForNoHostTraceLine(lineNumber, lines, res);
                         resLine.hostMachine = lastNonMonitorHost;
                         resLine.traceMessage = line;
                     }
@@ -388,7 +375,6 @@ namespace PTraceToMSC
                                 }
                                 break;
                             //The following lines always belong to Runtime:
-                            //TODO: verify this (for PSharp):
                             case "StrategyLog":
                             case "ErrorLog":
                             case "RandomLog":
@@ -446,31 +432,8 @@ namespace PTraceToMSC
                         
                     }
 
-
-                    //Debug: print members of resLine:
-                    //Console.WriteLine("Parsed line {0}", line);
-                    //Console.WriteLine("lineKind: {0}", resLine.lineKind);
-                    //Console.WriteLine("hostMachine: {0}", resLine.hostMachine);
-                    //Console.WriteLine("receiverMachine: {0}", resLine.receiverMachine);
-                    //Console.WriteLine("createdMachine: {0}", resLine.createdMachine);
-                    //Console.WriteLine("monitorCreated: {0}", resLine.monitorCreated);
-                    //Console.WriteLine("hostMonitor: {0}", resLine.hostMonitor);
-                    //Console.WriteLine("haltedMachine: {0}", resLine.haltedMachine);
-                    //Console.WriteLine("eventNameArgs: {0}", resLine.eventNameArgs);
-                    //Console.WriteLine("nDroppedEvts: {0}", resLine.nDroppedEvts);
-                    //End of Debug
-
                     res.Add(resLine);
                 }
-
-                //Debug:
-                //Console.WriteLine("All monitors in trace:");
-                //foreach (var monitor in monitors)
-                //{
-                //    Console.WriteLine("Monitor: {0}", monitor);
-                //}
-                //Console.WriteLine("Main machine in trace: {0}", mainMachineName);
-                //End of Debug
 
                 return res;
             }
@@ -625,7 +588,7 @@ namespace PTraceToMSC
                         break;
                     case ParsedTraceLine.Kind.DroppedSend:
                         //TODO: do we want to connect dropped send action with the corresp. halt action
-                        //(if the halt action happened in a diff machine only)
+                        //(if the halt action happened in a diff machine only)?
                         //Treated as atomic action for now:
                         resLine = GenerateOutLine1(traceLine.hostMachine, hostClock + 1, traceLine.traceMessage);
                         sw.WriteLine(resLine);
@@ -679,7 +642,6 @@ namespace PTraceToMSC
             sw.Close();
 
             return sw.ToString();
-
         }
     }
 }
