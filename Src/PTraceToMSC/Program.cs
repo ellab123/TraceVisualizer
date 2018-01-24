@@ -93,16 +93,16 @@ namespace PTraceToMSC
                 int len = res.Length - dotInd - 1;
                 res = res.Substring(dotInd + 1, len);
                 //Debug:
-                Console.WriteLine("Short name for {0} is {1}; last dot index is {2}; short name length is {3}", name, res, dotInd, len);
+                //Console.WriteLine("Short name for {0} is {1}; last dot index is {2}; short name length is {3}", name, res, dotInd, len);
             }
             //Strip instance numbers (after "-") for main machine and spec machines for PTester:
             int pos = res.LastIndexOf("-");
             string pureName = (pos > 1) ? res.Substring(0, pos) : res;
-            Console.WriteLine("Pure name for {0} is {1}", res, pureName);
+            //Console.WriteLine("Pure name for {0} is {1}", res, pureName);
             if (pTool == "ptester" &&  (monitors.Contains(pureName) || String.Equals(pureName, mainMachineName)))
             {
                 res = pureName;
-                Console.WriteLine("Stripped spec or main machine name {0}, result: {1}", res, pureName);    
+                //Console.WriteLine("Stripped spec or main machine name {0}, result: {1}", res, pureName);    
             }
             
             return res;
