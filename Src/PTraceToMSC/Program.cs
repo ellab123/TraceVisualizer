@@ -384,7 +384,7 @@ namespace PTraceToMSC
                             case "IterativeDeepeningDFSLog":
                             case "PCTLog":
                                 resLine.lineKind = ParsedTraceLine.Kind.AtomicAction;
-                                Trace.Assert(machInds.Count == 0 || machInds.Count == 1);
+                                //Trace.Assert(machInds.Count == 0 || machInds.Count == 1);
                                 resLine.hostMachine = "Runtime";
                                 resLine.traceMessage = origTraceToMessage(line);
                                 break;
@@ -402,7 +402,7 @@ namespace PTraceToMSC
                             case "ReceiveLog":
                             case "ExitLog":
                                 resLine.lineKind = ParsedTraceLine.Kind.AtomicAction;
-                                Trace.Assert(machInds.Count == 0 || machInds.Count == 1);
+                                //Trace.Assert(machInds.Count == 0 || machInds.Count == 1);
                                 if (machInds.Count == 1)
                                 {
                                     resLine.hostMachine = GetShortNameForMachine(words[machInds[0]]);
