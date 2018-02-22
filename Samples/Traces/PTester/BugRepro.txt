@@ -13,14 +13,14 @@ EXIT (csc.exe): 0
 OUT: -----------------------------------------------------
 OUT: Total Schedules Explored: 0
 OUT: -----------------------------------------------------
-OUT: <CreateLog> Spec Machine Liveness was created by machine Runtime
+OUT: <CreateLog> Spec Machine Liveness-0 was created by machine Runtime
 OUT: <CreateLog> Spec Machine Safety was created by machine Runtime
-OUT: <CreateLog> Main machine Main was created by machine Runtime
+OUT: <CreateLog> Main machine Main-1 was created by machine Runtime
 OUT: <StateLog> Machine Main-1 entering State Main_Init
 OUT: <CreateLog> Machine Node-1 was created by machine Main-1
 OUT: <CreateLog> Machine Node-2 was created by machine Main-1
 OUT: <StateLog> Machine Node-2 entering State Node_WaitPing
-OUT: <AnnounceLog> Enqueued Event <M_START, ((Node(1),True), (Node(2),True), )> to Spec Machine Liveness
+OUT: <AnnounceLog> Enqueued Event <M_START, ((Node(1),True), (Node(2),True), )> to Spec Machine Liveness-0
 OUT: <StateLog> Machine Liveness-0 exiting State Liveness_Init
 OUT: <CreateLog> Machine FailureDetector-1 was created by machine Main-1
 OUT: <EnqueueLog> Enqueued Event <REGISTER_CLIENT,Main(1)> in machine FailureDetector-1 by machine Main-1

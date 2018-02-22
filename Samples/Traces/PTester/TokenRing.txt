@@ -13,7 +13,7 @@ EXIT (csc.exe): 0
 OUT: -----------------------------------------------------
 OUT: Total Schedules Explored: 0
 OUT: -----------------------------------------------------
-OUT: <CreateLog> Main machine Main was created by machine Runtime
+OUT: <CreateLog> Main machine Main-1 was created by machine Runtime
 OUT: <StateLog> Machine Main-1 entering State Main_Boot_Main_Ring4
 OUT: <CreateLog> Machine Node-1 was created by machine Main-1
 OUT: <CreateLog> Machine Node-2 was created by machine Main-1
