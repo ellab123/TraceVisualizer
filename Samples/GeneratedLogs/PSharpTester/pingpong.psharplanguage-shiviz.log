@@ -2,55 +2,46 @@
 
 Runtime { "Runtime": 1 }   <TestHarnessLog> Running test method 'PingPong.PSharpLanguage.Program.Execute'
 Runtime { "Runtime": 2 }   <CreateLog> Machine 'PingPong.PSharpLanguage.NetworkEnvironment(1)' is created
-PingPong.PSharpLanguage.NetworkEnvironment(1) { "Runtime": 2, "PingPong.PSharpLanguage.NetworkEnvironment(1)": 1 }   Machine PingPong.PSharpLanguage.NetworkEnvironment(1) entering start state
-PingPong.PSharpLanguage.NetworkEnvironment(1) { "PingPong.PSharpLanguage.NetworkEnvironment(1)": 2 }   <StateLog> Machine 'PingPong.PSharpLanguage.NetworkEnvironment(1)' enters state 'PingPong.PSharpLanguage.NetworkEnvironment.Init'
-PingPong.PSharpLanguage.NetworkEnvironment(1) { "PingPong.PSharpLanguage.NetworkEnvironment(1)": 3 }   <ActionLog> Machine 'PingPong.PSharpLanguage.NetworkEnvironment(1)' in state 'PingPong.PSharpLanguage.NetworkEnvironment.Init' invoked action 'psharp_Init_on_entry_action'
+NetworkEnvironment(1) { "Runtime": 2, "NetworkEnvironment(1)": 1 }   <ActionLog> Machine NetworkEnvironment(1) entering start state
+NetworkEnvironment(1) { "NetworkEnvironment(1)": 2 }   <StateLog> Machine 'PingPong.PSharpLanguage.NetworkEnvironment(1)' enters state 'PingPong.PSharpLanguage.NetworkEnvironment.Init'
+NetworkEnvironment(1) { "NetworkEnvironment(1)": 3 }   <ActionLog> Machine 'PingPong.PSharpLanguage.NetworkEnvironment(1)' in state 'PingPong.PSharpLanguage.NetworkEnvironment.Init' invoked action 'psharp_Init_on_entry_action'
 Runtime { "Runtime": 3 }   <CreateLog> Machine 'PingPong.PSharpLanguage.Server(2)' is created
-PingPong.PSharpLanguage.Server(2) { "Runtime": 3, "PingPong.PSharpLanguage.Server(2)": 1 }   Machine PingPong.PSharpLanguage.Server(2) entering start state
+Server(2) { "Runtime": 3, "Server(2)": 1 }   <ActionLog> Machine Server(2) entering start state
 Runtime { "Runtime": 4 }   <CreateLog> Machine 'PingPong.PSharpLanguage.Client(3)' is created
-PingPong.PSharpLanguage.Client(3) { "Runtime": 4, "PingPong.PSharpLanguage.Client(3)": 1 }   Machine PingPong.PSharpLanguage.Client(3) entering start state
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Client(3)": 2 }   <StateLog> Machine 'PingPong.PSharpLanguage.Client(3)' enters state 'PingPong.PSharpLanguage.Client.Init'
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Client(3)": 3 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Init' invoked action 'psharp_Init_on_entry_action'
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Client(3)": 4 }   <RaiseLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Init' raised event 'Microsoft.PSharp.GotoStateEvent'
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Client(3)": 5 }   <GotoLog> Machine 'PingPong.PSharpLanguage.Client(3)' is transitioning from state 'PingPong.PSharpLanguage.Client.Init' to state 'PingPong.PSharpLanguage.Client.Active'
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Client(3)": 6 }   <StateLog> Machine 'PingPong.PSharpLanguage.Client(3)' exits state 'PingPong.PSharpLanguage.Client.Init'
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Client(3)": 7 }   <StateLog> Machine 'PingPong.PSharpLanguage.Client(3)' enters state 'PingPong.PSharpLanguage.Client.Active'
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Client(3)": 8 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' invoked action 'psharp_ActiveBaseState_on_entry_action'
-PingPong.PSharpLanguage.Server(2) { "PingPong.PSharpLanguage.Server(2)": 2 }   <StateLog> Machine 'PingPong.PSharpLanguage.Server(2)' enters state 'PingPong.PSharpLanguage.Server.Active'
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Client(3)": 9 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' sent event 'PingPong.PSharpLanguage.Client+Ping' to machine 'PingPong.PSharpLanguage.Server(2)'
-
-PingPong.PSharpLanguage.Server(2) { "PingPong.PSharpLanguage.Client(3)": 9, "PingPong.PSharpLanguage.Server(2)": 3 }   <DequeueLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' dequeued event 'PingPong.PSharpLanguage.Client+Ping'
-PingPong.PSharpLanguage.Server(2) { "PingPong.PSharpLanguage.Server(2)": 4 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' invoked action 'SendPong'
-PingPong.PSharpLanguage.Server(2) { "PingPong.PSharpLanguage.Server(2)": 5 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' sent event 'PingPong.PSharpLanguage.Server+Pong' to machine 'PingPong.PSharpLanguage.Client(3)'
-
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Server(2)": 5, "PingPong.PSharpLanguage.Client(3)": 10 }   <DequeueLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' dequeued event 'PingPong.PSharpLanguage.Server+Pong'
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Client(3)": 11 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' invoked action 'SendPing'
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Client(3)": 12 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' sent event 'PingPong.PSharpLanguage.Client+Ping' to machine 'PingPong.PSharpLanguage.Server(2)'
-
-PingPong.PSharpLanguage.Server(2) { "PingPong.PSharpLanguage.Client(3)": 12, "PingPong.PSharpLanguage.Server(2)": 6 }   <DequeueLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' dequeued event 'PingPong.PSharpLanguage.Client+Ping'
-PingPong.PSharpLanguage.Server(2) { "PingPong.PSharpLanguage.Server(2)": 7 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' invoked action 'SendPong'
-PingPong.PSharpLanguage.Server(2) { "PingPong.PSharpLanguage.Server(2)": 8 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' sent event 'PingPong.PSharpLanguage.Server+Pong' to machine 'PingPong.PSharpLanguage.Client(3)'
-
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Server(2)": 8, "PingPong.PSharpLanguage.Client(3)": 13 }   <DequeueLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' dequeued event 'PingPong.PSharpLanguage.Server+Pong'
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Client(3)": 14 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' invoked action 'SendPing'
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Client(3)": 15 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' sent event 'PingPong.PSharpLanguage.Client+Ping' to machine 'PingPong.PSharpLanguage.Server(2)'
-
-PingPong.PSharpLanguage.Server(2) { "PingPong.PSharpLanguage.Client(3)": 15, "PingPong.PSharpLanguage.Server(2)": 9 }   <DequeueLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' dequeued event 'PingPong.PSharpLanguage.Client+Ping'
-PingPong.PSharpLanguage.Server(2) { "PingPong.PSharpLanguage.Server(2)": 10 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' invoked action 'SendPong'
-PingPong.PSharpLanguage.Server(2) { "PingPong.PSharpLanguage.Server(2)": 11 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' sent event 'PingPong.PSharpLanguage.Server+Pong' to machine 'PingPong.PSharpLanguage.Client(3)'
-
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Server(2)": 11, "PingPong.PSharpLanguage.Client(3)": 16 }   <DequeueLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' dequeued event 'PingPong.PSharpLanguage.Server+Pong'
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Client(3)": 17 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' invoked action 'SendPing'
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Client(3)": 18 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' sent event 'PingPong.PSharpLanguage.Client+Ping' to machine 'PingPong.PSharpLanguage.Server(2)'
-
-PingPong.PSharpLanguage.Server(2) { "PingPong.PSharpLanguage.Client(3)": 18, "PingPong.PSharpLanguage.Server(2)": 12 }   <DequeueLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' dequeued event 'PingPong.PSharpLanguage.Client+Ping'
-PingPong.PSharpLanguage.Server(2) { "PingPong.PSharpLanguage.Server(2)": 13 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' invoked action 'SendPong'
-PingPong.PSharpLanguage.Server(2) { "PingPong.PSharpLanguage.Server(2)": 14 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' sent event 'PingPong.PSharpLanguage.Server+Pong' to machine 'PingPong.PSharpLanguage.Client(3)'
-
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Server(2)": 14, "PingPong.PSharpLanguage.Client(3)": 19 }   <DequeueLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' dequeued event 'PingPong.PSharpLanguage.Server+Pong'
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Client(3)": 20 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' invoked action 'SendPing'
-PingPong.PSharpLanguage.Client(3) { "PingPong.PSharpLanguage.Client(3)": 21 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' sent event 'PingPong.PSharpLanguage.Client+Ping' to machine 'PingPong.PSharpLanguage.Server(2)'
-
+Client(3) { "Runtime": 4, "Client(3)": 1 }   <ActionLog> Machine Client(3) entering start state
+Client(3) { "Client(3)": 2 }   <StateLog> Machine 'PingPong.PSharpLanguage.Client(3)' enters state 'PingPong.PSharpLanguage.Client.Init'
+Client(3) { "Client(3)": 3 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Init' invoked action 'psharp_Init_on_entry_action'
+Client(3) { "Client(3)": 4 }   <RaiseLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Init' raised event 'Microsoft.PSharp.GotoStateEvent'
+Client(3) { "Client(3)": 5 }   <GotoLog> Machine 'PingPong.PSharpLanguage.Client(3)' is transitioning from state 'PingPong.PSharpLanguage.Client.Init' to state 'PingPong.PSharpLanguage.Client.Active'
+Client(3) { "Client(3)": 6 }   <StateLog> Machine 'PingPong.PSharpLanguage.Client(3)' exits state 'PingPong.PSharpLanguage.Client.Init'
+Client(3) { "Client(3)": 7 }   <StateLog> Machine 'PingPong.PSharpLanguage.Client(3)' enters state 'PingPong.PSharpLanguage.Client.Active'
+Client(3) { "Client(3)": 8 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' invoked action 'psharp_ActiveBaseState_on_entry_action'
+Server(2) { "Server(2)": 2 }   <StateLog> Machine 'PingPong.PSharpLanguage.Server(2)' enters state 'PingPong.PSharpLanguage.Server.Active'
+Client(3) { "Client(3)": 9 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' sent event 'PingPong.PSharpLanguage.Client+Ping' to machine 'PingPong.PSharpLanguage.Server(2)'
+Server(2) { "Client(3)": 9, "Server(2)": 3 }   <DequeueLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' dequeued event 'PingPong.PSharpLanguage.Client+Ping'
+Server(2) { "Server(2)": 4 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' invoked action 'SendPong'
+Server(2) { "Server(2)": 5 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' sent event 'PingPong.PSharpLanguage.Server+Pong' to machine 'PingPong.PSharpLanguage.Client(3)'
+Client(3) { "Server(2)": 5, "Client(3)": 10 }   <DequeueLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' dequeued event 'PingPong.PSharpLanguage.Server+Pong'
+Client(3) { "Client(3)": 11 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' invoked action 'SendPing'
+Client(3) { "Client(3)": 12 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' sent event 'PingPong.PSharpLanguage.Client+Ping' to machine 'PingPong.PSharpLanguage.Server(2)'
+Server(2) { "Client(3)": 12, "Server(2)": 6 }   <DequeueLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' dequeued event 'PingPong.PSharpLanguage.Client+Ping'
+Server(2) { "Server(2)": 7 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' invoked action 'SendPong'
+Server(2) { "Server(2)": 8 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' sent event 'PingPong.PSharpLanguage.Server+Pong' to machine 'PingPong.PSharpLanguage.Client(3)'
+Client(3) { "Server(2)": 8, "Client(3)": 13 }   <DequeueLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' dequeued event 'PingPong.PSharpLanguage.Server+Pong'
+Client(3) { "Client(3)": 14 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' invoked action 'SendPing'
+Client(3) { "Client(3)": 15 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' sent event 'PingPong.PSharpLanguage.Client+Ping' to machine 'PingPong.PSharpLanguage.Server(2)'
+Server(2) { "Client(3)": 15, "Server(2)": 9 }   <DequeueLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' dequeued event 'PingPong.PSharpLanguage.Client+Ping'
+Server(2) { "Server(2)": 10 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' invoked action 'SendPong'
+Server(2) { "Server(2)": 11 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' sent event 'PingPong.PSharpLanguage.Server+Pong' to machine 'PingPong.PSharpLanguage.Client(3)'
+Client(3) { "Server(2)": 11, "Client(3)": 16 }   <DequeueLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' dequeued event 'PingPong.PSharpLanguage.Server+Pong'
+Client(3) { "Client(3)": 17 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' invoked action 'SendPing'
+Client(3) { "Client(3)": 18 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' sent event 'PingPong.PSharpLanguage.Client+Ping' to machine 'PingPong.PSharpLanguage.Server(2)'
+Server(2) { "Client(3)": 18, "Server(2)": 12 }   <DequeueLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' dequeued event 'PingPong.PSharpLanguage.Client+Ping'
+Server(2) { "Server(2)": 13 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' invoked action 'SendPong'
+Server(2) { "Server(2)": 14 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' sent event 'PingPong.PSharpLanguage.Server+Pong' to machine 'PingPong.PSharpLanguage.Client(3)'
+Client(3) { "Server(2)": 14, "Client(3)": 19 }   <DequeueLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' dequeued event 'PingPong.PSharpLanguage.Server+Pong'
+Client(3) { "Client(3)": 20 }   <ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' invoked action 'SendPing'
+Client(3) { "Client(3)": 21 }   <SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' sent event 'PingPong.PSharpLanguage.Client+Ping' to machine 'PingPong.PSharpLanguage.Server(2)'
 Runtime { "Runtime": 5 }   <ErrorLog> Detected an assertion failure
 Runtime { "Runtime": 6 }   <StrategyLog> Found bug using 'Random' strategy
 Runtime { "Runtime": 7 }   <StrategyLog> Testing statistics:

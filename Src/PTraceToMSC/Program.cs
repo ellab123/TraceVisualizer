@@ -55,6 +55,8 @@ namespace PTraceToMSC
         public string shivizTraceFile;
         //P tool that generated the original trace:
         public string pTool;
+        //If set, leave only interleaving actions in the generated log:
+        public bool interleaving;
         //Stores last seen non-monitor host; needed for CreateLog lines (which have no host):
         private string lastNonMonitorHost;
         private List<string> monitors;
@@ -63,6 +65,8 @@ namespace PTraceToMSC
         public Dictionary<string, int> vectorClocks;
         //Stores event queue for each machine:
         public Dictionary<string,Queue<QueueElem>> eventQueues;
+        //Needed for debugging:
+        public int curOrigTraceLine;
         public PTraceToMSCConverter(string[] inputTrace, int start)
         {
             this.pTraceOrig = inputTrace;
@@ -71,6 +75,45 @@ namespace PTraceToMSC
             this.eventQueues = new Dictionary<string, Queue<QueueElem>>();
             this.lastNonMonitorHost = "Runtime";
             this.monitors = new List<string>();
+            this.curOrigTraceLine = -1;
+        }
+        public string RemoveSpaces(string arg)
+        {
+            //string res = Regex.Replace(arg, @"\s+", " ");
+            string res = arg.Replace(" ", string.Empty);
+            return res;
+            //return Regex.Replace(arg, @"\s+", " ");
+        }
+        //Remove spaces from names (inside '') like:
+        //'Microsoft.Azure.Batch.PoolManager.Test.BaseTester(2)`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]](7)':
+        public string RemoveSpacesInNames(string arg)
+        {
+            List<string> res = new List<string>();
+            //Find all names in quotes "'":
+            string [] words = arg.Split('\'');
+           
+            if (words.Length == 0)
+            {
+                return arg;
+            }
+            else
+            {
+                res.Add(words[0]);
+                for (int i = 1; i < words.Length; i = i + 2)
+                {
+                    //Console.WriteLine("Next word in quotes: {0}", words[i]);
+                    res.Add("'" + RemoveSpaces(words[i]) + "'");
+                    res.Add(words[i+1]);
+                }
+                //Debug:
+                string outStr = String.Join(String.Empty, res.ToArray());
+                //Console.WriteLine("RemoveSpacesInNames:");
+                //Console.WriteLine("Argument: {0}", arg);
+                //Console.WriteLine("Result: {0}", outStr);
+
+                return outStr;
+            }
+            
         }
         //For <host> group in Shiviz regexp,
         //replace quoted qualified names in PSharp with unquoted non-qualified names;
@@ -79,13 +122,34 @@ namespace PTraceToMSC
         public string GetShortNameForMachine(string name)
         {
             //'FailureDetector.PSharpLanguage.Driver(0)' => Driver(0)
+            //Remove quotes around the name:
             string res = name.Trim('\'');
 
-            MatchCollection matches = Regex.Matches(res, @"\.");
-            if (matches.Count > 0)
+            //Remove links from the name. Examples:
+            //Microsoft.PSharp.SharedObjects.SharedDictionaryMachine`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, 
+            //PublicKeyToken =b77a5c561934e089],[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]](4)
+            //
+            //Find all occurrences of "`" (must be not more than one):
+            MatchCollection matchesAp = Regex.Matches(res, @"\`");
+            //Fails on Nar's trace:
+            //Trace.Assert(matchesAp.Count <= 1);
+            //Find all occurrences of "(":
+            MatchCollection matchesBr = Regex.Matches(res, @"\(");
+            if (matchesAp.Count == 1 && matchesBr.Count > 0)
             {
-                var lastDot = matches[matches.Count - 1];
-                int dotInd = lastDot.Index;
+                int apInd = (matchesAp[0]).Index;
+                //Last occurrence of "(" is needed:
+                int brInd = (matchesBr[matchesBr.Count - 1]).Index;
+                res = res.Substring(0, apInd) + res.Substring(brInd);
+            }
+
+            //Find all occurrences of "." :
+            MatchCollection matchesDots = Regex.Matches(res, @"\.");
+            
+            int lastDotInd = 0;
+            if (matchesDots.Count > 0)
+            {
+                lastDotInd = (matchesDots[matchesDots.Count - 1]).Index;
             }
             //Strip instance numbers (after "-") for main machine and spec machines for PTester:
             int pos = res.LastIndexOf("-");
@@ -94,7 +158,12 @@ namespace PTraceToMSC
             {
                 res = pureName;    
             }
-            
+            else
+            if (pTool == "psharptester" && matchesDots.Count > 0)
+            {
+                res = pureName.Substring(lastDotInd + 1);
+            }
+            //Console.WriteLine("GetShortNameForMachine: name {0} shortened to {1}", name, res);
             return res;
         }
         //Convert original trace line into ShiViz trace message:
@@ -117,11 +186,46 @@ namespace PTraceToMSC
                 lastNonMonitorHost = GetShortNameForMachine(curHost);
             }
         }
+        //(TODO: remove after PSharp logging is fixed) Temporary workaround for PSharp tracing bug:
+        //Split two joined lines, where each line ends with a dot:
+        //public List<string> SplitJoinedLines()
+        //{
+        //    List<string> res = new List<string>();
+        //    for (int i = 0; i < pTraceOrig.Count(); i++)
+        //    {
+        //        if ((pTraceOrig[i]).StartsWith(@"<PCTLog> Priority list:"))
+        //        {
+        //            //Find the joined line: assuming that it starts with a tag:
+        //            string[] s = (pTraceOrig[i]).Split('<');
+        //            Trace.Assert(s.Count() < 4);
+        //            if (s.Count() == 3)
+        //            {
+        //                res.Add("<" + s[1].Substring(0, (s[1]).Count() - 2) + ".");
+        //                res.Add("<" + s[2]);
+        //            }
+        //            else
+        //            {
+        //                res.Add(pTraceOrig[i]);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            res.Add(pTraceOrig[i]);
+        //        }
+        //    }
+        //    //Debug:
+        //    Console.WriteLine("Line count in the orig trace before split: {0}, after split: {1}", pTraceOrig.Count(), res.Count());
+        //    return res;
+        //}
         public List<ParsedTraceLine> PreProcessTrace()
         {
             List<ParsedTraceLine> res = new List<ParsedTraceLine>();
 
             {
+                //(TODO: remove after PSharp tracing is fixed) Temporary workaround for PSharp tracing bug:
+                //Split two joined lines, where each line ends with a dot:
+                //pTraceOrig = SplitJoinedLines().ToArray();
+
                 //Array of all lines of the original trace:
                 List<string> lines = new List<string>();
                 //Filter out irrelevant lines:
@@ -131,7 +235,7 @@ namespace PTraceToMSC
                     {
                         if (pTraceOrig[i].StartsWith("<") || pTraceOrig[i].StartsWith("OUT: <"))
                         {
-                            lines.Add(pTraceOrig[i]);
+                                lines.Add(pTraceOrig[i]);  
                         }
                         else 
                         if (pTraceOrig[i].StartsWith("OUT: ERROR"))
@@ -153,18 +257,24 @@ namespace PTraceToMSC
                 }
                 //Pattern for finding original log name <XXXLog>:
                 var pattern = @"\<(.*?)\>";
-                int lineNumber = -1;
+                //int lineNumber = -1;
+                //Debug:
+                //Console.WriteLine("Number of lines in the trace after removing irrelevant lines: {0}", lines.Count());
 
                 foreach (var lineOrig in lines)
                 {
-                    lineNumber++;
+                    //curOrigTraceLine++;
                     ParsedTraceLine resLine = new ParsedTraceLine();
-                    string line = lineOrig;
+                    string line1 = lineOrig;
                     //PSharp trace lines has dot at the end:
-                    if (line[line.Length - 1] == '.')
+                    if (line1[line1.Length - 1] == '.')
                     {
-                        line = line.Substring(0, line.Length - 1);
+                        line1 = line1.Substring(0, line1.Length - 1);
                     }
+                    //Remove spaces from names like:
+                    //'Microsoft.Azure.Batch.PoolManager.Test.BaseTester(2)`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]](7)':
+                    string line = RemoveSpacesInNames(line1);
+
                     //Split the line into arrray of words:
                     string[] words = line.Split(' ');
                     //Find all machine and event ids in the line:
@@ -197,6 +307,8 @@ namespace PTraceToMSC
                     //Find which log the line belongs to:
                     MatchCollection matches = Regex.Matches(line, pattern);
 
+                    //Some trace lines have to be skipped:
+                    bool lineAdded = true;
                     if (matches.Count == 0)
                     {
                         //trace line is a comment, for example:
@@ -226,6 +338,7 @@ namespace PTraceToMSC
                                 //PSharp examples:
                                 //1. <CreateLog> Machine 'FailureDetector.PSharpLanguage.Node(5)' was created by machine 'FailureDetector.PSharpLanguage.Driver(3)'.
                                 //2. <CreateLog> Machine 'FailureDetector.PSharpLanguage.Driver(3)' was created by the Runtime.
+                                //   <CreateLog> Machine 'Microsoft.Azure.Batch.PoolManager.Test.BaseTester(2)' was created by the Runtime.
                                 //For monitors, default host is "Runtime":
                                 //3. <CreateLog> Monitor 'Safety' with id 'FailureDetector.PSharpLanguage.Safety(1)' was created.
                                 Trace.Assert(machInds.Count > 0);
@@ -336,6 +449,10 @@ namespace PTraceToMSC
                             case "AnnounceLog":
                                 //PTester: event sent from Runtime to a spec machine, for example:
                                 //"<AnnounceLog> Enqueued Event <M_PONG, Node(1)> to Spec Machine Safety"
+                                if (this.interleaving)
+                                {
+                                    lineAdded = false;
+                                }
                                 Trace.Assert(machInds.Count == 1);
                                 resLine.lineKind = ParsedTraceLine.Kind.Send;
                                 resLine.hostMachine = "Runtime";
@@ -377,12 +494,21 @@ namespace PTraceToMSC
                             //The following lines always belong to Runtime:
                             case "StrategyLog":
                             case "ErrorLog":
+                                resLine.lineKind = ParsedTraceLine.Kind.AtomicAction;
+                                //Trace.Assert(machInds.Count == 0 || machInds.Count == 1);
+                                resLine.hostMachine = "Runtime";
+                                resLine.traceMessage = origTraceToMessage(line);
+                                break;
                             case "RandomLog":
                             case "ScheduleDebug":
                             case "ChordLog":
                             case "DelayLog":
                             case "IterativeDeepeningDFSLog":
                             case "PCTLog":
+                                if (this.interleaving)
+                                {
+                                    lineAdded = false;
+                                }
                                 resLine.lineKind = ParsedTraceLine.Kind.AtomicAction;
                                 //Trace.Assert(machInds.Count == 0 || machInds.Count == 1);
                                 resLine.hostMachine = "Runtime";
@@ -401,6 +527,10 @@ namespace PTraceToMSC
                             case "MonitorLog":
                             case "ReceiveLog":
                             case "ExitLog":
+                                if (this.interleaving)
+                                {
+                                    lineAdded = false;
+                                }
                                 resLine.lineKind = ParsedTraceLine.Kind.AtomicAction;
                                 //Trace.Assert(machInds.Count == 0 || machInds.Count == 1);
                                 if (machInds.Count == 1)
@@ -418,7 +548,7 @@ namespace PTraceToMSC
                                 resLine.traceMessage = origTraceToMessage(line);
                                 break;
                             default:
-                                //After debugging is finished, such lines shoudl be ignored in ShiViz;
+                                //After debugging is finished, such lines should be ignored in ShiViz;
                                 resLine.lineKind = ParsedTraceLine.Kind.Other;
                                 resLine.traceMessage = origTraceToMessage(line);
                                 Console.WriteLine("Unexpected: Next line's kind is {0}: implement this line kind or ignore it", matches[0].ToString());
@@ -431,8 +561,11 @@ namespace PTraceToMSC
                         }
                         
                     }
-
-                    res.Add(resLine);
+                    if (lineAdded)
+                    {
+                        res.Add(resLine);
+                    }
+                    
                 }
 
                 return res;
@@ -477,7 +610,7 @@ namespace PTraceToMSC
                     return res;
                 }
             }
-            Console.WriteLine("ERROR: Queue element for event {0} and receiver {1} not found in reciever's queue", eventArgs, receiver);
+            Console.WriteLine("ERROR: Queue element for event {0} and receiver {1} not found in receiver's queue", eventArgs, receiver);
             Trace.Assert(false);
             return null; 
         }
@@ -546,9 +679,13 @@ namespace PTraceToMSC
                         eventQueues.Add(traceLine.createdMachine, new Queue<QueueElem>());
                         string monitorOrMachine = (traceLine.monitorCreated) 
                             ? 
-                                ((pTool == "psharp") ? "Monitor " : "Spec ")
+                                ((pTool == "psharptester") ? "Monitor " : "Spec ")
                             : "Machine ";
-                        string message = monitorOrMachine + traceLine.createdMachine + " entering start state";
+                        string log = (traceLine.monitorCreated)
+                            ?
+                                ((pTool == "psharptester") ? "<MonitorLog> " : "<SpecLog> ")
+                            : "<ActionLog> ";
+                        string message = log + monitorOrMachine + traceLine.createdMachine + " entering start state";
                         string newLine = GenerateOutLine2(traceLine.createdMachine, traceLine.hostMachine,
                             hostClock +1, traceLine.createdMachine, 1, message);
                         sw.WriteLine(newLine);
@@ -606,7 +743,8 @@ namespace PTraceToMSC
                         vectorClocks[traceLine.hostMachine]++;
                         //Generate "nDroppedEvt" lines in the trace, each connected to the corresp. Send in the sender machine;
                         //leave the same message, but copy sender and the clock from each event in the queue:
-                        Trace.Assert(traceLine.nDroppedEvts == eventQueues[traceLine.haltedMachine].Count());
+                        //TODO: This assert fails for C:\Temp\PSIntegrationTest_1_0.txt (from Nar):
+                        //Trace.Assert(traceLine.nDroppedEvts == eventQueues[traceLine.haltedMachine].Count());
                         foreach (QueueElem evtInQueue in eventQueues[traceLine.haltedMachine])
                         {
                             //Tuple<event expr, sender, receiver, sender clock>
@@ -628,8 +766,8 @@ namespace PTraceToMSC
                         vectorClocks[traceLine.hostMachine] = hostClock + 1;
                         break;
                     case ParsedTraceLine.Kind.SkipLine:
-                        resLine = "";
-                        sw.WriteLine(resLine);
+                        //resLine = "";
+                        //sw.WriteLine(resLine);
                         break;
                     case ParsedTraceLine.Kind.Other:
                         resLine = traceLine.traceMessage;
@@ -637,6 +775,11 @@ namespace PTraceToMSC
                         break;
                 }               
             }
+
+            //TODO: remove empty lines from the log
+            //Debug:
+            //Console.WriteLine("Total number of machine instances in the trace: {0}", vectorClocks.Count());
+            //Console.WriteLine("Total number of monitor instances in the trace: {0}", monitors.Count());
 
             sw.Flush();
             sw.Close();
