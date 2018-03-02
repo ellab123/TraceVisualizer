@@ -159,7 +159,9 @@ namespace PTraceToMSC
         }
         public static void PrintUsage()
         {
-            Console.WriteLine("Usage: PTraceToMSC.exe /ptool:[psharptester|ptester] /trace:<input trace file> /output:<output trace file> [-interleaving] [/?]");
+            Console.WriteLine("USAGE: PTraceToMSC.exe /ptool:[psharptester|ptester] /trace:<input trace file> /output:<output trace file> [-interleaving] [/?]");
+            Console.WriteLine("Compiles .txt execution trace from PSharTester.exe or pt.exe into ShiViz MSC visualization tool log");
+            Console.WriteLine("-interleaving: generate log with only error reports and interleaving actions: machine create/halt, enqueue, dequeue");
         }
         private static int Main(string[] args)
         {
