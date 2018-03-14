@@ -1,0 +1,164 @@
+(?<host>\S+) (?<clock>\{.*\}) (?<event>.*)
+
+Runtime { "Runtime": 1 }   <CreateLog> Runtime machine has been created
+Runtime { "Runtime": 2 }   <CreateLog> Main machine Main-1 was created by machine Runtime
+Main-1 { "Runtime": 2, "Main-1": 1 }   <ActionLog> Machine Main-1 entering start state
+Main-1 { "Main-1": 2 }   <StateLog> Machine Main-1 entering State Main_Boot_Main_Ring4
+Main-1 { "Main-1": 3 }   <CreateLog> Machine Node-1 was created by machine Main-1
+Node-1 { "Main-1": 3, "Node-1": 1 }   <ActionLog> Machine Node-1 entering start state
+Main-1 { "Main-1": 4 }   <CreateLog> Machine Node-2 was created by machine Main-1
+Node-2 { "Main-1": 4, "Node-2": 1 }   <ActionLog> Machine Node-2 entering start state
+Node-2 { "Node-2": 2 }   <StateLog> Machine Node-2 entering State Node_Init_Main_Node
+Node-1 { "Node-1": 2 }   <StateLog> Machine Node-1 entering State Node_Init_Main_Node
+Main-1 { "Main-1": 5 }   <CreateLog> Machine Node-3 was created by machine Main-1
+Node-3 { "Main-1": 5, "Node-3": 1 }   <ActionLog> Machine Node-3 entering start state
+Main-1 { "Main-1": 6 }   <CreateLog> Machine Node-4 was created by machine Main-1
+Node-4 { "Main-1": 6, "Node-4": 1 }   <ActionLog> Machine Node-4 entering start state
+Node-3 { "Node-3": 2 }   <StateLog> Machine Node-3 entering State Node_Init_Main_Node
+Main-1 { "Main-1": 7 }   <EnqueueLog> Enqueued Event <Next,Node(2)> in machine Node-1 by machine Main-1
+Node-4 { "Node-4": 2 }   <StateLog> Machine Node-4 entering State Node_Init_Main_Node
+Main-1 { "Main-1": 8 }   <EnqueueLog> Enqueued Event <Next,Node(3)> in machine Node-2 by machine Main-1
+Node-1 { "Main-1": 7, "Node-1": 3 }   <DequeueLog> Dequeued Event <Next,Node(2)> at Machine Node-1
+Node-1 { "Node-1": 4 }   <StateLog> Machine Node-1 exiting State Node_Init_Main_Node
+Node-1 { "Node-1": 5 }   <StateLog> Machine Node-1 entering State Node_SetNext_Main_Node
+Node-1 { "Node-1": 6 }   <EnqueueLog> Enqueued Event <Ready,null> in machine Main-1 by machine Node-1
+Main-1 { "Main-1": 9 }   <EnqueueLog> Enqueued Event <Next,Node(4)> in machine Node-3 by machine Main-1
+Node-1 { "Node-1": 7 }   <RaiseLog> Machine Node-1 raised Event Unit
+Node-1 { "Node-1": 8 }   <StateLog> Machine Node-1 exiting State Node_SetNext_Main_Node
+Node-1 { "Node-1": 9 }   <StateLog> Machine Node-1 entering State Node_Wait_Main_Node
+Node-3 { "Main-1": 9, "Node-3": 3 }   <DequeueLog> Dequeued Event <Next,Node(4)> at Machine Node-3
+Node-3 { "Node-3": 4 }   <StateLog> Machine Node-3 exiting State Node_Init_Main_Node
+Node-3 { "Node-3": 5 }   <StateLog> Machine Node-3 entering State Node_SetNext_Main_Node
+Node-3 { "Node-3": 6 }   <EnqueueLog> Enqueued Event <Ready,null> in machine Main-1 by machine Node-3
+Main-1 { "Main-1": 10 }   <EnqueueLog> Enqueued Event <Next,Node(1)> in machine Node-4 by machine Main-1
+Node-3 { "Node-3": 7 }   <RaiseLog> Machine Node-3 raised Event Unit
+Node-3 { "Node-3": 8 }   <StateLog> Machine Node-3 exiting State Node_SetNext_Main_Node
+Node-3 { "Node-3": 9 }   <StateLog> Machine Node-3 entering State Node_Wait_Main_Node
+Node-4 { "Main-1": 10, "Node-4": 3 }   <DequeueLog> Dequeued Event <Next,Node(1)> at Machine Node-4
+Node-4 { "Node-4": 4 }   <StateLog> Machine Node-4 exiting State Node_Init_Main_Node
+Node-4 { "Node-4": 5 }   <StateLog> Machine Node-4 entering State Node_SetNext_Main_Node
+Node-4 { "Node-4": 6 }   <EnqueueLog> Enqueued Event <Ready,null> in machine Main-1 by machine Node-4
+Node-2 { "Main-1": 8, "Node-2": 3 }   <DequeueLog> Dequeued Event <Next,Node(3)> at Machine Node-2
+Node-2 { "Node-2": 4 }   <StateLog> Machine Node-2 exiting State Node_Init_Main_Node
+Node-2 { "Node-2": 5 }   <StateLog> Machine Node-2 entering State Node_SetNext_Main_Node
+Node-2 { "Node-2": 6 }   <EnqueueLog> Enqueued Event <Ready,null> in machine Main-1 by machine Node-2
+Node-4 { "Node-4": 7 }   <RaiseLog> Machine Node-4 raised Event Unit
+Node-4 { "Node-4": 8 }   <StateLog> Machine Node-4 exiting State Node_SetNext_Main_Node
+Node-4 { "Node-4": 9 }   <StateLog> Machine Node-4 entering State Node_Wait_Main_Node
+Main-1 { "Main-1": 11 }   <RaiseLog> Machine Main-1 raised Event Unit
+Main-1 { "Main-1": 12 }   <StateLog> Machine Main-1 exiting State Main_Boot_Main_Ring4
+Main-1 { "Main-1": 13 }   <StateLog> Machine Main-1 entering State Main_Stabilize_Main_Ring4
+Main-1 { "Node-1": 6, "Main-1": 14 }   <DequeueLog> Dequeued Event <Ready,null> at Machine Main-1
+Main-1 { "Main-1": 15 }   <StateLog> Machine Main-1 exiting State Main_Stabilize_Main_Ring4
+Main-1 { "Main-1": 16 }   <StateLog> Machine Main-1 entering State Main_Stabilize_Main_Ring4
+Main-1 { "Node-3": 6, "Main-1": 17 }   <DequeueLog> Dequeued Event <Ready,null> at Machine Main-1
+Main-1 { "Main-1": 18 }   <StateLog> Machine Main-1 exiting State Main_Stabilize_Main_Ring4
+Main-1 { "Main-1": 19 }   <StateLog> Machine Main-1 entering State Main_Stabilize_Main_Ring4
+Main-1 { "Node-4": 6, "Main-1": 20 }   <DequeueLog> Dequeued Event <Ready,null> at Machine Main-1
+Main-1 { "Main-1": 21 }   <StateLog> Machine Main-1 exiting State Main_Stabilize_Main_Ring4
+Main-1 { "Main-1": 22 }   <StateLog> Machine Main-1 entering State Main_Stabilize_Main_Ring4
+Main-1 { "Node-2": 6, "Main-1": 23 }   <DequeueLog> Dequeued Event <Ready,null> at Machine Main-1
+Main-1 { "Main-1": 24 }   <StateLog> Machine Main-1 exiting State Main_Stabilize_Main_Ring4
+Main-1 { "Main-1": 25 }   <StateLog> Machine Main-1 entering State Main_Stabilize_Main_Ring4
+Main-1 { "Main-1": 26 }   <RaiseLog> Machine Main-1 raised Event Unit
+Main-1 { "Main-1": 27 }   <StateLog> Machine Main-1 exiting State Main_Stabilize_Main_Ring4
+Main-1 { "Main-1": 28 }   <StateLog> Machine Main-1 entering State Main_RandomComm_Main_Ring4
+Main-1 { "Main-1": 29 }   <EnqueueLog> Enqueued Event <Send,Node(4)> in machine Node-4 by machine Main-1
+Node-2 { "Node-2": 7 }   <RaiseLog> Machine Node-2 raised Event Unit
+Node-2 { "Node-2": 8 }   <StateLog> Machine Node-2 exiting State Node_SetNext_Main_Node
+Node-2 { "Node-2": 9 }   <StateLog> Machine Node-2 entering State Node_Wait_Main_Node
+Main-1 { "Main-1": 30 }   <RaiseLog> Machine Main-1 raised Event Unit
+Main-1 { "Main-1": 31 }   <StateLog> Machine Main-1 exiting State Main_RandomComm_Main_Ring4
+Main-1 { "Main-1": 32 }   <StateLog> Machine Main-1 entering State Main_RandomComm_Main_Ring4
+Main-1 { "Main-1": 33 }   <EnqueueLog> Enqueued Event <Send,Node(4)> in machine Node-4 by machine Main-1
+Node-4 { "Main-1": 29, "Node-4": 10 }   <DequeueLog> Dequeued Event <Send,Node(4)> at Machine Node-4
+Node-4 { "Node-4": 11 }   <StateLog> Machine Node-4 exiting State Node_Wait_Main_Node
+Node-4 { "Node-4": 12 }   <StateLog> Machine Node-4 entering State Node_StartSending_Main_Node
+Node-4 { "Node-4": 13 }   <EnqueueLog> Enqueued Event <Sending,Node(4)> in machine Node-1 by machine Node-4
+Node-1 { "Node-4": 13, "Node-1": 10 }   <DequeueLog> Dequeued Event <Sending,Node(4)> at Machine Node-1
+Node-1 { "Node-1": 11 }   <StateLog> Machine Node-1 exiting State Node_Wait_Main_Node
+Node-1 { "Node-1": 12 }   <StateLog> Machine Node-1 entering State Node_KeepSending_Main_Node
+Node-1 { "Node-1": 13 }   <EnqueueLog> Enqueued Event <Sending,Node(4)> in machine Node-2 by machine Node-1
+Node-2 { "Node-1": 13, "Node-2": 10 }   <DequeueLog> Dequeued Event <Sending,Node(4)> at Machine Node-2
+Node-2 { "Node-2": 11 }   <StateLog> Machine Node-2 exiting State Node_Wait_Main_Node
+Node-2 { "Node-2": 12 }   <StateLog> Machine Node-2 entering State Node_KeepSending_Main_Node
+Node-2 { "Node-2": 13 }   <EnqueueLog> Enqueued Event <Sending,Node(4)> in machine Node-3 by machine Node-2
+Node-3 { "Node-2": 13, "Node-3": 10 }   <DequeueLog> Dequeued Event <Sending,Node(4)> at Machine Node-3
+Node-3 { "Node-3": 11 }   <StateLog> Machine Node-3 exiting State Node_Wait_Main_Node
+Node-3 { "Node-3": 12 }   <StateLog> Machine Node-3 entering State Node_KeepSending_Main_Node
+Node-3 { "Node-3": 13 }   <EnqueueLog> Enqueued Event <Sending,Node(4)> in machine Node-4 by machine Node-3
+Node-4 { "Node-4": 14 }   <RaiseLog> Machine Node-4 raised Event Unit
+Node-4 { "Node-4": 15 }   <StateLog> Machine Node-4 exiting State Node_StartSending_Main_Node
+Node-4 { "Node-4": 16 }   <StateLog> Machine Node-4 entering State Node_Wait_Main_Node
+Node-4 { "Main-1": 33, "Node-4": 17 }   <DequeueLog> Dequeued Event <Send,Node(4)> at Machine Node-4
+Node-4 { "Node-4": 18 }   <StateLog> Machine Node-4 exiting State Node_Wait_Main_Node
+Node-4 { "Node-4": 19 }   <StateLog> Machine Node-4 entering State Node_StartSending_Main_Node
+Node-4 { "Node-4": 20 }   <EnqueueLog> Enqueued Event <Sending,Node(4)> in machine Node-1 by machine Node-4
+Node-1 { "Node-1": 14 }   <RaiseLog> Machine Node-1 raised Event Unit
+Node-1 { "Node-1": 15 }   <StateLog> Machine Node-1 exiting State Node_KeepSending_Main_Node
+Node-1 { "Node-1": 16 }   <StateLog> Machine Node-1 entering State Node_Wait_Main_Node
+Node-1 { "Node-4": 20, "Node-1": 17 }   <DequeueLog> Dequeued Event <Sending,Node(4)> at Machine Node-1
+Node-1 { "Node-1": 18 }   <StateLog> Machine Node-1 exiting State Node_Wait_Main_Node
+Node-1 { "Node-1": 19 }   <StateLog> Machine Node-1 entering State Node_KeepSending_Main_Node
+Node-1 { "Node-1": 20 }   <EnqueueLog> Enqueued Event <Sending,Node(4)> in machine Node-2 by machine Node-1
+Node-4 { "Node-4": 21 }   <RaiseLog> Machine Node-4 raised Event Unit
+Node-4 { "Node-4": 22 }   <StateLog> Machine Node-4 exiting State Node_StartSending_Main_Node
+Node-4 { "Node-4": 23 }   <StateLog> Machine Node-4 entering State Node_Wait_Main_Node
+Node-4 { "Node-3": 13, "Node-4": 24 }   <DequeueLog> Dequeued Event <Sending,Node(4)> at Machine Node-4
+Node-4 { "Node-4": 25 }   <StateLog> Machine Node-4 exiting State Node_Wait_Main_Node
+Node-4 { "Node-4": 26 }   <StateLog> Machine Node-4 entering State Node_KeepSending_Main_Node
+Node-4 { "Node-4": 27 }   <EnqueueLog> Enqueued Event <Done,Node(4)> in machine Node-1 by machine Node-4
+Node-2 { "Node-2": 14 }   <RaiseLog> Machine Node-2 raised Event Unit
+Node-2 { "Node-2": 15 }   <StateLog> Machine Node-2 exiting State Node_KeepSending_Main_Node
+Node-2 { "Node-2": 16 }   <StateLog> Machine Node-2 entering State Node_Wait_Main_Node
+Node-2 { "Node-1": 20, "Node-2": 17 }   <DequeueLog> Dequeued Event <Sending,Node(4)> at Machine Node-2
+Node-2 { "Node-2": 18 }   <StateLog> Machine Node-2 exiting State Node_Wait_Main_Node
+Node-2 { "Node-2": 19 }   <StateLog> Machine Node-2 entering State Node_KeepSending_Main_Node
+Node-2 { "Node-2": 20 }   <EnqueueLog> Enqueued Event <Sending,Node(4)> in machine Node-3 by machine Node-2
+Node-2 { "Node-2": 21 }   <RaiseLog> Machine Node-2 raised Event Unit
+Node-2 { "Node-2": 22 }   <StateLog> Machine Node-2 exiting State Node_KeepSending_Main_Node
+Node-2 { "Node-2": 23 }   <StateLog> Machine Node-2 entering State Node_Wait_Main_Node
+Node-1 { "Node-1": 21 }   <RaiseLog> Machine Node-1 raised Event Unit
+Node-1 { "Node-1": 22 }   <StateLog> Machine Node-1 exiting State Node_KeepSending_Main_Node
+Node-1 { "Node-1": 23 }   <StateLog> Machine Node-1 entering State Node_Wait_Main_Node
+Node-1 { "Node-4": 27, "Node-1": 24 }   <DequeueLog> Dequeued Event <Done,Node(4)> at Machine Node-1
+Node-1 { "Node-1": 25 }   <StateLog> Machine Node-1 exiting State Node_Wait_Main_Node
+Node-1 { "Node-1": 26 }   <StateLog> Machine Node-1 entering State Node_StopSending_Main_Node
+Node-1 { "Node-1": 27 }   <EnqueueLog> Enqueued Event <Done,Node(4)> in machine Node-2 by machine Node-1
+Node-4 { "Node-4": 28 }   <RaiseLog> Machine Node-4 raised Event Unit
+Node-4 { "Node-4": 29 }   <StateLog> Machine Node-4 exiting State Node_KeepSending_Main_Node
+Node-4 { "Node-4": 30 }   <StateLog> Machine Node-4 entering State Node_Wait_Main_Node
+Node-3 { "Node-3": 14 }   <RaiseLog> Machine Node-3 raised Event Unit
+Node-3 { "Node-3": 15 }   <StateLog> Machine Node-3 exiting State Node_KeepSending_Main_Node
+Node-3 { "Node-3": 16 }   <StateLog> Machine Node-3 entering State Node_Wait_Main_Node
+Node-3 { "Node-2": 20, "Node-3": 17 }   <DequeueLog> Dequeued Event <Sending,Node(4)> at Machine Node-3
+Node-3 { "Node-3": 18 }   <StateLog> Machine Node-3 exiting State Node_Wait_Main_Node
+Node-3 { "Node-3": 19 }   <StateLog> Machine Node-3 entering State Node_KeepSending_Main_Node
+Node-3 { "Node-3": 20 }   <EnqueueLog> Enqueued Event <Sending,Node(4)> in machine Node-4 by machine Node-3
+Main-1 { "Main-1": 34 }   <RaiseLog> Machine Main-1 raised Event Unit
+Main-1 { "Main-1": 35 }   <StateLog> Machine Main-1 exiting State Main_RandomComm_Main_Ring4
+Main-1 { "Main-1": 36 }   <StateLog> Machine Main-1 entering State Main_RandomComm_Main_Ring4
+Main-1 { "Main-1": 37 }   <EnqueueLog> Enqueued Event <Send,Node(4)> in machine Node-4 by machine Main-1
+Main-1 { "Main-1": 38 }   <RaiseLog> Machine Main-1 raised Event Unit
+Main-1 { "Main-1": 39 }   <StateLog> Machine Main-1 exiting State Main_RandomComm_Main_Ring4
+Main-1 { "Main-1": 40 }   <StateLog> Machine Main-1 entering State Main_RandomComm_Main_Ring4
+Main-1 { "Main-1": 41 }   <EnqueueLog> Enqueued Event <Send,Node(4)> in machine Node-4 by machine Main-1
+Node-4 { "Node-3": 20, "Node-4": 31 }   <DequeueLog> Dequeued Event <Sending,Node(4)> at Machine Node-4
+Node-4 { "Node-4": 32 }   <StateLog> Machine Node-4 exiting State Node_Wait_Main_Node
+Node-4 { "Node-4": 33 }   <StateLog> Machine Node-4 entering State Node_KeepSending_Main_Node
+Node-4 { "Node-4": 34 }   <EnqueueLog> Enqueued Event <Done,Node(4)> in machine Node-1 by machine Node-4
+Node-4 { "Node-4": 35 }   <RaiseLog> Machine Node-4 raised Event Unit
+Node-4 { "Node-4": 36 }   <StateLog> Machine Node-4 exiting State Node_KeepSending_Main_Node
+Node-4 { "Node-4": 37 }   <StateLog> Machine Node-4 entering State Node_Wait_Main_Node
+Node-4 { "Main-1": 37, "Node-4": 38 }   <DequeueLog> Dequeued Event <Send,Node(4)> at Machine Node-4
+Node-4 { "Node-4": 39 }   <StateLog> Machine Node-4 exiting State Node_Wait_Main_Node
+Node-4 { "Node-4": 40 }   <StateLog> Machine Node-4 entering State Node_StartSending_Main_Node
+Node-4 { "Node-4": 41 }   <EnqueueLog> Enqueued Event <Sending,Node(4)> in machine Node-1 by machine Node-4
+Node-1 { "Node-1": 28 }   <RaiseLog> Machine Node-1 raised Event Unit
+Node-1 { "Node-1": 29 }   <StateLog> Machine Node-1 exiting State Node_StopSending_Main_Node
+Node-1 { "Node-1": 30 }   <StateLog> Machine Node-1 entering State Node_Wait_Main_Node
+Node-1 { "Node-4": 34, "Node-1": 31 }   <DequeueLog> Dequeued Event <Done,Node(4)> at Machine Node-1
+Node-1 { "Node-1": 32 }   <StateLog> Machine Node-1 exiting State Node_Wait_Main_Node
+Node-1 { "Node-1": 33 }   <StateLog> Machine Node-1 entering State Node_StopSending_Main_Node
+Node-1 { "Node-1": 34 }   <EnqueueLog> Enqueued Event <Done,Node(4)> in machine Node-2 by machine Node-1
+Runtime { "Runtime": 3 }   ERROR:  Attempting to enqueue event Done more than max instance of 1\n

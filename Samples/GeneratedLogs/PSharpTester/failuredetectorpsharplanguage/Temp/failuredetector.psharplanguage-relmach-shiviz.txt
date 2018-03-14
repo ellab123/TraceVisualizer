@@ -1,0 +1,26 @@
+(?<host>\S+) (?<clock>\{.*\}) (?<event>.*)
+
+Runtime { "Runtime": 1 }   <CreateLog> Runtime machine has been created
+Runtime { "Runtime": 2 }   <CreateLog> Machine 'FailureDetector.PSharpLanguage.Driver(0)' was created by the Runtime
+RemovedMachines { "Runtime": 2, "RemovedMachines": 1 }   <ActionLog> Machine RemovedMachines entering start state
+RemovedMachines { "RemovedMachines": 2 }   <CreateLog> Machine 'FailureDetector.PSharpLanguage.Node(1)' was created by machine 'FailureDetector.PSharpLanguage.Driver(0)'
+Node(1) { "RemovedMachines": 2, "Node(1)": 1 }   <ActionLog> Machine Node(1) entering start state
+RemovedMachines { "RemovedMachines": 3 }   <CreateLog> Machine 'FailureDetector.PSharpLanguage.Node(2)' was created by machine 'FailureDetector.PSharpLanguage.Driver(0)'
+Node(2) { "RemovedMachines": 3, "Node(2)": 1 }   <ActionLog> Machine Node(2) entering start state
+RemovedMachines { "RemovedMachines": 4 }   <CreateLog> Machine 'FailureDetector.PSharpLanguage.FailureDetector(3)' was created by machine 'FailureDetector.PSharpLanguage.Driver(0)'
+FailureDetector(3) { "RemovedMachines": 4, "FailureDetector(3)": 1 }   <ActionLog> Machine FailureDetector(3) entering start state
+RemovedMachines { "RemovedMachines": 5 }   <SendLog> Operation Group <none>: Machine 'FailureDetector.PSharpLanguage.Driver(0)' in state 'FailureDetector.PSharpLanguage.Driver.Init' sent event 'FailureDetector.PSharpLanguage.Driver+RegisterClient' to machine 'FailureDetector.PSharpLanguage.FailureDetector(3)'
+FailureDetector(3) { "FailureDetector(3)": 2 }   <SendLog> Operation Group <none>: Machine 'FailureDetector.PSharpLanguage.FailureDetector(3)' in state 'FailureDetector.PSharpLanguage.FailureDetector.SendPing' sent event 'FailureDetector.PSharpLanguage.Node+Ping' to machine 'FailureDetector.PSharpLanguage.Node(1)'
+FailureDetector(3) { "FailureDetector(3)": 3 }   <SendLog> Operation Group <none>: Machine 'FailureDetector.PSharpLanguage.FailureDetector(3)' in state 'FailureDetector.PSharpLanguage.FailureDetector.SendPing' sent event 'FailureDetector.PSharpLanguage.Node+Ping' to machine 'FailureDetector.PSharpLanguage.Node(2)'
+FailureDetector(3) { "FailureDetector(3)": 4 }   <SendLog> Operation Group <none>: Machine 'FailureDetector.PSharpLanguage.FailureDetector(3)' in state 'FailureDetector.PSharpLanguage.FailureDetector.SendPing' sent event 'FailureDetector.PSharpLanguage.Timer+StartTimer' to machine 'FailureDetector.PSharpLanguage.Timer(4)'
+Node(1) { "FailureDetector(3)": 2, "Node(1)": 2 }   <DequeueLog> Machine 'FailureDetector.PSharpLanguage.Node(1)' in state 'FailureDetector.PSharpLanguage.Node.WaitPing' dequeued event 'FailureDetector.PSharpLanguage.Node+Ping'
+FailureDetector(3) { "RemovedMachines": 5, "FailureDetector(3)": 5 }   <DequeueLog> Machine 'FailureDetector.PSharpLanguage.FailureDetector(3)' in state 'FailureDetector.PSharpLanguage.FailureDetector.SendPing' dequeued event 'FailureDetector.PSharpLanguage.Driver+RegisterClient'
+RemovedMachines { "RemovedMachines": 6 }   <SendLog> Operation Group <none>: Machine 'FailureDetector.PSharpLanguage.Driver(0)' in state 'FailureDetector.PSharpLanguage.Driver.InjectFailures' sent event 'Microsoft.PSharp.Halt' to machine 'FailureDetector.PSharpLanguage.Node(1)'
+RemovedMachines { "RemovedMachines": 7 }   <SendLog> Operation Group <none>: Machine 'FailureDetector.PSharpLanguage.Driver(0)' in state 'FailureDetector.PSharpLanguage.Driver.InjectFailures' sent event 'Microsoft.PSharp.Halt' to machine 'FailureDetector.PSharpLanguage.Node(2)'
+Node(2) { "FailureDetector(3)": 3, "Node(2)": 2 }   <DequeueLog> Machine 'FailureDetector.PSharpLanguage.Node(2)' in state 'FailureDetector.PSharpLanguage.Node.WaitPing' dequeued event 'FailureDetector.PSharpLanguage.Node+Ping'
+RemovedMachines { "RemovedMachines": 8 }   <SendLog> Operation Group <none>: Machine 'FailureDetector.PSharpLanguage.Timer(4)' in state 'FailureDetector.PSharpLanguage.Timer.WaitForCancel' sent event 'FailureDetector.PSharpLanguage.Timer+Timeout' to machine 'FailureDetector.PSharpLanguage.FailureDetector(3)'
+Node(1) { "Node(1)": 3 }   <SendLog> Operation Group <none>: Machine 'FailureDetector.PSharpLanguage.Node(1)' in state 'FailureDetector.PSharpLanguage.Node.WaitPing' sent event 'FailureDetector.PSharpLanguage.Node+Pong' to machine 'FailureDetector.PSharpLanguage.FailureDetector(3)'
+Node(1) { "RemovedMachines": 6, "Node(1)": 4 }   <DequeueLog> Machine 'FailureDetector.PSharpLanguage.Node(1)' in state 'FailureDetector.PSharpLanguage.Node.WaitPing' dequeued event 'Microsoft.PSharp.Halt'
+Node(2) { "Node(2)": 3 }   <SendLog> Operation Group <none>: Machine 'FailureDetector.PSharpLanguage.Node(2)' in state 'FailureDetector.PSharpLanguage.Node.WaitPing' sent event 'FailureDetector.PSharpLanguage.Node+Pong' to machine 'FailureDetector.PSharpLanguage.FailureDetector(3)'
+Node(2) { "RemovedMachines": 7, "Node(2)": 4 }   <DequeueLog> Machine 'FailureDetector.PSharpLanguage.Node(2)' in state 'FailureDetector.PSharpLanguage.Node.WaitPing' dequeued event 'Microsoft.PSharp.Halt'
+FailureDetector(3) { "RemovedMachines": 8, "FailureDetector(3)": 6 }   <DequeueLog> Machine 'FailureDetector.PSharpLanguage.FailureDetector(3)' in state 'FailureDetector.PSharpLanguage.FailureDetector.SendPing' dequeued event 'FailureDetector.PSharpLanguage.Timer+Timeout'

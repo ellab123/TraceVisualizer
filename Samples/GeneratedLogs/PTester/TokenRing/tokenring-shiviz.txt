@@ -1,7 +1,8 @@
 (?<host>\S+) (?<clock>\{.*\}) (?<event>.*)
 
-Runtime { "Runtime": 1 }   <CreateLog> Main machine Main-1 was created by machine Runtime
-Main-1 { "Runtime": 1, "Main-1": 1 }   <ActionLog> Machine Main-1 entering start state
+Runtime { "Runtime": 1 }   <CreateLog> Runtime machine has been created
+Runtime { "Runtime": 2 }   <CreateLog> Main machine Main-1 was created by machine Runtime
+Main-1 { "Runtime": 2, "Main-1": 1 }   <ActionLog> Machine Main-1 entering start state
 Main-1 { "Main-1": 2 }   <StateLog> Machine Main-1 entering State Main_Boot_Main_Ring4
 Main-1 { "Main-1": 3 }   <CreateLog> Machine Node-1 was created by machine Main-1
 Node-1 { "Main-1": 3, "Node-1": 1 }   <ActionLog> Machine Node-1 entering start state
@@ -160,4 +161,4 @@ Node-1 { "Node-4": 34, "Node-1": 31 }   <DequeueLog> Dequeued Event <Done,Node(4
 Node-1 { "Node-1": 32 }   <StateLog> Machine Node-1 exiting State Node_Wait_Main_Node
 Node-1 { "Node-1": 33 }   <StateLog> Machine Node-1 entering State Node_StopSending_Main_Node
 Node-1 { "Node-1": 34 }   <EnqueueLog> Enqueued Event <Done,Node(4)> in machine Node-2 by machine Node-1
-Node-1 { "Node-1": 35 }   ERROR:  Attempting to enqueue event Done more than max instance of 1\n
+Runtime { "Runtime": 3 }   ERROR:  Attempting to enqueue event Done more than max instance of 1\n

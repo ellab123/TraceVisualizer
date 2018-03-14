@@ -34,11 +34,15 @@ namespace PTraceToMSC
         public string outputTraceFile;
         //If "true", only leave interleaving actions in the trace (create/send/dequeue...):
         public bool interleaving = false;
+        //Text file with relevant machine types to leave in the trace (comma-separated):
+        public string relevantMachines;
+        //(TODO) Text file with relevant event names to leave in the trace (comma-separated):
+        public string relevantEvents;
+        //Line number in the input file to start generating the log:
+        public long startLineNum;
     }
     public class PTraceToMSCCommandLine
     {
-        //Command line arguments example:
-        ///ptool:psharptester /trace:C:\Traces\PingPong.trace /output:C:\Traces\PingPong.shiviz
         public static CommandLineOptions ParseCommandLine(string[] args)
         {
             var options = new CommandLineOptions();
@@ -114,6 +118,50 @@ namespace PTraceToMSC
                                 options.interleaving = true;
                                 break;
                             }
+                        case "relmachines":
+                            {
+                                if (options.relevantMachines != null)
+                                {
+                                    PrintHelp(arg, "Only one /relMachines argument is allowed");
+                                    return null;
+                                }
+                                if (!File.Exists(param))
+                                {
+                                    PrintHelp(param, "Cannot find relMachines file");
+                                    return null;
+                                }
+                                options.relevantMachines = param;
+                                break;
+                            }
+                        case "relevents":
+                            {
+                                if (options.relevantEvents != null)
+                                {
+                                    PrintHelp(arg, "Only one /relEvents argument is allowed");
+                                    return null;
+                                }
+                                if (!File.Exists(param))
+                                {
+                                    PrintHelp(param, "Cannot find relEvents file");
+                                    return null;
+                                }
+                                options.relevantEvents = param;
+                                break;
+                            }
+                        case "startlinenum":
+                            {
+                                if (options.startLineNum != 0)
+                                {
+                                    PrintHelp(arg, "Only one /startLineNum argument is allowed");
+                                    return null;
+                                }
+                                long k;
+                                if (System.Int64.TryParse(param, out k))
+                                    options.startLineNum = k;
+                                else
+                                    Console.WriteLine("/startLineNum argument could not be parsed.");
+                                break;
+                            }
                         default:
                             PrintHelp(arg, "Invalid option");
                             return null;
@@ -159,9 +207,39 @@ namespace PTraceToMSC
         }
         public static void PrintUsage()
         {
-            Console.WriteLine("USAGE: PTraceToMSC.exe /ptool:[psharptester|ptester] /trace:<input trace file> /output:<output trace file> [-interleaving] [/?]");
-            Console.WriteLine("Compiles .txt execution trace from PSharTester.exe or pt.exe into ShiViz MSC visualization tool log");
-            Console.WriteLine("-interleaving: generate log with only error reports and interleaving actions: machine create/halt, enqueue, dequeue");
+            Console.WriteLine("USAGE: PTraceToMSC.exe /ptool:[PSharpTester|PTester] /trace:<input trace file> /output:<output trace file> ");
+            Console.WriteLine("          [-interleaving] [/relMachines:<file with machine types>] [/relEvents:<file with event names>] [/?]");
+            Console.WriteLine("Compiles .txt execution trace from PSharTester.exe or pt.exe into ShiViz visualization tool log");
+            Console.WriteLine("-interleaving                          generate log with only error reports and interleaving actions: ");
+            Console.WriteLine("                                       machine create/halt, enqueue, dequeue");
+            Console.WriteLine("/relMachines:<file with machine types> text file with comma-separated machine type names that should be left in the trace");
+            Console.WriteLine("/relEvents:<file with event names>     text file with comma-separated event names that should be left in the trace");
+            Console.WriteLine("/startLineNum:<int>                    used when generating only a tail of the output file (for long ShiViz logs)");
+        }
+        public static string RemoveNewlineSpaces(string s)
+        {
+            s = s.Replace("\n", String.Empty);
+            s = s.Replace("\r", String.Empty);
+            s = s.Replace(" ", String.Empty);
+            return s;
+        }
+        public static List<string> GetNames(string fileName)
+        {
+            string names;
+            try
+            {
+                names = File.ReadAllText(fileName);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(
+                    "ERROR: Could not read input file {0}: {1}",
+                    fileName,
+                    e.Message);
+                return null;
+            }
+            names = RemoveNewlineSpaces(names);
+            return (names.Split(',')).ToList(); 
         }
         private static int Main(string[] args)
         {
@@ -186,12 +264,12 @@ namespace PTraceToMSC
 
             //Split into an array by using both \n and \r\n as end of line symbols:
             string[] lines = inputTrace.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
-            //Debug:
-            //Console.WriteLine("NUmber of lines in the input trace: {0}"lines.Count());
 
             int traceStartLine = 0;
             //If trace file represents multiple traces generated by "pt.exe -verbose",
-            //remove all traces except the the last trace in the file:
+            //remove all traces except the the last trace in the file.
+            //TODO: Implements multiple traces conversion into logs by using 
+            //ShiViz tool capability for displaying multiple traces.
             if ((options.pTool == "ptester"))
             {
                 //Find index of the last line which starts with "Execution":
@@ -207,14 +285,30 @@ namespace PTraceToMSC
                 {
                     traceStartLine = inds[inds.Count - 1] + 1;
                 }
-                //Console.WriteLine("Trace starts at line: {0}", traceStartLine);
             }
 
-            PTraceToMSCConverter converter = new PTraceToMSCConverter(lines, traceStartLine);
+            PTraceToMSCConverter converter = new PTraceToMSCConverter(lines, traceStartLine, options);
             converter.pTraceOrig = lines;
-            converter.pTool = options.pTool;
-            converter.shivizTraceFile = options.outputTraceFile;
-            converter.interleaving = options.interleaving;
+            if (!(options.relevantMachines == null))
+            {
+                converter.relMachTypes = GetNames(options.relevantMachines);
+                //Add Runtime to the list, if it's not already there:
+                if (!converter.relMachTypes.Contains("Runtime"))
+                {
+                    converter.relMachTypes.Add("Runtime");
+                }
+                Console.WriteLine("Generating log for the following machine types:");
+                converter.relMachTypes.ForEach(Console.WriteLine);
+            }
+            
+            if (!(options.relevantEvents == null))
+            {
+                Console.WriteLine("\"/relEvents\" option is not implemented yet");
+                //converter.relEvents = GetNames(options.relevantEvents);
+                //Console.WriteLine("Generating log for the following machine events:");
+                //converter.relEvents.ForEach(Console.WriteLine);
+            }
+
             switch (converter.pTool)
             {
                 case "psharptester":
@@ -230,7 +324,6 @@ namespace PTraceToMSC
                     PrintUsage();
                     break;
             }
-            //Write ShiViz trace into specified output file:
             try
             {
                 File.WriteAllText(converter.shivizTraceFile, converter.shivizTrace);

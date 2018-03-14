@@ -1,0 +1,34 @@
+(?<host>\S+) (?<clock>\{.*\}) (?<event>.*)
+
+Runtime { "Runtime": 1 }   <CreateLog> Runtime machine has been created
+Runtime { "Runtime": 2 }   <CreateLog> Spec Machine Liveness-0 was created by machine Runtime
+RemovedMachines { "Runtime": 2, "RemovedMachines": 1 }   <SpecLog> Spec RemovedMachines entering start state
+RemovedMachines { "RemovedMachines": 2 }   <CreateLog> Machine FailureDetector-1 was created by machine Main-1
+FailureDetector-1 { "RemovedMachines": 2, "FailureDetector-1": 1 }   <ActionLog> Machine FailureDetector-1 entering start state
+RemovedMachines { "RemovedMachines": 3 }   <EnqueueLog> Enqueued Event <REGISTER_CLIENT,Main(1)> in machine FailureDetector-1 by machine Main-1
+FailureDetector-1 { "FailureDetector-1": 2 }   <CreateLog> Machine Timer-1 was created by machine FailureDetector-1
+Timer-1 { "FailureDetector-1": 2, "Timer-1": 1 }   <ActionLog> Machine Timer-1 entering start state
+FailureDetector-1 { "FailureDetector-1": 3 }   <EnqueueLog> Enqueued Event <PING,FailureDetector(1)> in machine Node-1 by machine FailureDetector-1
+FailureDetector-1 { "FailureDetector-1": 4 }   <EnqueueLog> Enqueued Event <PING,FailureDetector(1)> in machine Node-2 by machine FailureDetector-1
+RemovedMachines { "RemovedMachines": 4 }   <EnqueueLog> Enqueued Event <PONG,Node(2)> in machine FailureDetector-1 by machine Node-2
+RemovedMachines { "RemovedMachines": 5 }   <EnqueueLog> Enqueued Event <PONG,Node(1)> in machine FailureDetector-1 by machine Node-1
+FailureDetector-1 { "FailureDetector-1": 5 }   <EnqueueLog> Enqueued Event <START,100> in machine Timer-1 by machine FailureDetector-1
+Timer-1 { "FailureDetector-1": 5, "Timer-1": 2 }   <DequeueLog> Dequeued Event <START,100> at Machine Timer-1
+Timer-1 { "Timer-1": 3 }   <EnqueueLog> Enqueued Event <TIMEOUT,Timer(1)> in machine FailureDetector-1 by machine Timer-1
+FailureDetector-1 { "RemovedMachines": 3, "FailureDetector-1": 6 }   <DequeueLog> Dequeued Event <REGISTER_CLIENT,Main(1)> at Machine FailureDetector-1
+FailureDetector-1 { "RemovedMachines": 4, "FailureDetector-1": 7 }   <DequeueLog> Dequeued Event <PONG,Node(2)> at Machine FailureDetector-1
+FailureDetector-1 { "RemovedMachines": 5, "FailureDetector-1": 8 }   <DequeueLog> Dequeued Event <PONG,Node(1)> at Machine FailureDetector-1
+FailureDetector-1 { "FailureDetector-1": 9 }   <EnqueueLog> Enqueued Event <CANCEL,null> in machine Timer-1 by machine FailureDetector-1
+Timer-1 { "FailureDetector-1": 9, "Timer-1": 4 }   <DequeueLog> Dequeued Event <CANCEL,null> at Machine Timer-1
+Timer-1 { "Timer-1": 5 }   <EnqueueLog> Enqueued Event <CANCEL_FAILURE,Timer(1)> in machine FailureDetector-1 by machine Timer-1
+FailureDetector-1 { "Timer-1": 5, "FailureDetector-1": 10 }   <DequeueLog> Dequeued Event <CANCEL_FAILURE,Timer(1)> at Machine FailureDetector-1
+FailureDetector-1 { "Timer-1": 3, "FailureDetector-1": 11 }   <DequeueLog> Dequeued Event <TIMEOUT,Timer(1)> at Machine FailureDetector-1
+FailureDetector-1 { "FailureDetector-1": 12 }   <EnqueueLog> Enqueued Event <START,1000> in machine Timer-1 by machine FailureDetector-1
+Timer-1 { "FailureDetector-1": 12, "Timer-1": 6 }   <DequeueLog> Dequeued Event <START,1000> at Machine Timer-1
+Timer-1 { "Timer-1": 7 }   <EnqueueLog> Enqueued Event <TIMEOUT,Timer(1)> in machine FailureDetector-1 by machine Timer-1
+FailureDetector-1 { "Timer-1": 7, "FailureDetector-1": 13 }   <DequeueLog> Dequeued Event <TIMEOUT,Timer(1)> at Machine FailureDetector-1
+FailureDetector-1 { "FailureDetector-1": 14 }   <EnqueueLog> Enqueued Event <START,100> in machine Timer-1 by machine FailureDetector-1
+Timer-1 { "FailureDetector-1": 14, "Timer-1": 8 }   <DequeueLog> Dequeued Event <START,100> at Machine Timer-1
+Timer-1 { "Timer-1": 9 }   <EnqueueLog> Enqueued Event <TIMEOUT,Timer(1)> in machine FailureDetector-1 by machine Timer-1
+FailureDetector-1 { "Timer-1": 9, "FailureDetector-1": 15 }   <DequeueLog> Dequeued Event <TIMEOUT,Timer(1)> at Machine FailureDetector-1
+Runtime { "Runtime": 3 }   ERROR: PingPongBugRepro.p(154,4,154,10): error PC1001: Assert failed

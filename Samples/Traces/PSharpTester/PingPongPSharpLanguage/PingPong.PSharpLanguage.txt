@@ -1,0 +1,61 @@
+<TestHarnessLog> Running test method 'PingPong.PSharpLanguage.Program.Execute'.
+<CreateLog> Machine 'PingPong.PSharpLanguage.NetworkEnvironment(1)' is created.
+<StateLog> Machine 'PingPong.PSharpLanguage.NetworkEnvironment(1)' enters state 'PingPong.PSharpLanguage.NetworkEnvironment.Init'.
+<ActionLog> Machine 'PingPong.PSharpLanguage.NetworkEnvironment(1)' in state 'PingPong.PSharpLanguage.NetworkEnvironment.Init' invoked action 'psharp_Init_on_entry_action'.
+<CreateLog> Machine 'PingPong.PSharpLanguage.Server(2)' is created.
+<CreateLog> Machine 'PingPong.PSharpLanguage.Client(3)' is created.
+<StateLog> Machine 'PingPong.PSharpLanguage.Client(3)' enters state 'PingPong.PSharpLanguage.Client.Init'.
+<ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Init' invoked action 'psharp_Init_on_entry_action'.
+<RaiseLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Init' raised event 'Microsoft.PSharp.GotoStateEvent'.
+<GotoLog> Machine 'PingPong.PSharpLanguage.Client(3)' is transitioning from state 'PingPong.PSharpLanguage.Client.Init' to state 'PingPong.PSharpLanguage.Client.Active'.
+<StateLog> Machine 'PingPong.PSharpLanguage.Client(3)' exits state 'PingPong.PSharpLanguage.Client.Init'.
+<StateLog> Machine 'PingPong.PSharpLanguage.Client(3)' enters state 'PingPong.PSharpLanguage.Client.Active'.
+<ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' invoked action 'psharp_ActiveBaseState_on_entry_action'.
+<StateLog> Machine 'PingPong.PSharpLanguage.Server(2)' enters state 'PingPong.PSharpLanguage.Server.Active'.
+<SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' sent event 'PingPong.PSharpLanguage.Client+Ping' to machine 'PingPong.PSharpLanguage.Server(2)'.
+<EnqueueLog> Machine 'PingPong.PSharpLanguage.Server(2)' enqueued event 'PingPong.PSharpLanguage.Client+Ping'.
+Client request: 1 / 5
+<DequeueLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' dequeued event 'PingPong.PSharpLanguage.Client+Ping'.
+<ActionLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' invoked action 'SendPong'.
+<SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' sent event 'PingPong.PSharpLanguage.Server+Pong' to machine 'PingPong.PSharpLanguage.Client(3)'.
+<EnqueueLog> Machine 'PingPong.PSharpLanguage.Client(3)' enqueued event 'PingPong.PSharpLanguage.Server+Pong'.
+<DequeueLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' dequeued event 'PingPong.PSharpLanguage.Server+Pong'.
+<ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' invoked action 'SendPing'.
+<SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' sent event 'PingPong.PSharpLanguage.Client+Ping' to machine 'PingPong.PSharpLanguage.Server(2)'.
+<EnqueueLog> Machine 'PingPong.PSharpLanguage.Server(2)' enqueued event 'PingPong.PSharpLanguage.Client+Ping'.
+Client request: 2 / 5
+<DequeueLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' dequeued event 'PingPong.PSharpLanguage.Client+Ping'.
+<ActionLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' invoked action 'SendPong'.
+<SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' sent event 'PingPong.PSharpLanguage.Server+Pong' to machine 'PingPong.PSharpLanguage.Client(3)'.
+<EnqueueLog> Machine 'PingPong.PSharpLanguage.Client(3)' enqueued event 'PingPong.PSharpLanguage.Server+Pong'.
+<DequeueLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' dequeued event 'PingPong.PSharpLanguage.Server+Pong'.
+<ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' invoked action 'SendPing'.
+<SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' sent event 'PingPong.PSharpLanguage.Client+Ping' to machine 'PingPong.PSharpLanguage.Server(2)'.
+<EnqueueLog> Machine 'PingPong.PSharpLanguage.Server(2)' enqueued event 'PingPong.PSharpLanguage.Client+Ping'.
+Client request: 3 / 5
+<DequeueLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' dequeued event 'PingPong.PSharpLanguage.Client+Ping'.
+<ActionLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' invoked action 'SendPong'.
+<SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' sent event 'PingPong.PSharpLanguage.Server+Pong' to machine 'PingPong.PSharpLanguage.Client(3)'.
+<EnqueueLog> Machine 'PingPong.PSharpLanguage.Client(3)' enqueued event 'PingPong.PSharpLanguage.Server+Pong'.
+<DequeueLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' dequeued event 'PingPong.PSharpLanguage.Server+Pong'.
+<ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' invoked action 'SendPing'.
+<SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' sent event 'PingPong.PSharpLanguage.Client+Ping' to machine 'PingPong.PSharpLanguage.Server(2)'.
+<EnqueueLog> Machine 'PingPong.PSharpLanguage.Server(2)' enqueued event 'PingPong.PSharpLanguage.Client+Ping'.
+Client request: 4 / 5
+<DequeueLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' dequeued event 'PingPong.PSharpLanguage.Client+Ping'.
+<ActionLog> Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' invoked action 'SendPong'.
+<SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Server(2)' in state 'PingPong.PSharpLanguage.Server.Active' sent event 'PingPong.PSharpLanguage.Server+Pong' to machine 'PingPong.PSharpLanguage.Client(3)'.
+<EnqueueLog> Machine 'PingPong.PSharpLanguage.Client(3)' enqueued event 'PingPong.PSharpLanguage.Server+Pong'.
+<DequeueLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' dequeued event 'PingPong.PSharpLanguage.Server+Pong'.
+<ActionLog> Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' invoked action 'SendPing'.
+<SendLog> Operation Group <none>: Machine 'PingPong.PSharpLanguage.Client(3)' in state 'PingPong.PSharpLanguage.Client.Active' sent event 'PingPong.PSharpLanguage.Client+Ping' to machine 'PingPong.PSharpLanguage.Server(2)'.
+<EnqueueLog> Machine 'PingPong.PSharpLanguage.Server(2)' enqueued event 'PingPong.PSharpLanguage.Client+Ping'.
+Client request: 5 / 5
+<ErrorLog> Detected an assertion failure.
+<StrategyLog> Found bug using 'Random' strategy.
+<StrategyLog> Testing statistics:
+<StrategyLog> Found 1 bug.
+<StrategyLog> Scheduling statistics:
+<StrategyLog> Explored 1 schedule: 1 fair and 0 unfair.
+<StrategyLog> Found 100.00% buggy schedules.
+<StrategyLog> Number of scheduling points in fair terminating schedules: 23 (min), 23 (avg), 23 (max).
